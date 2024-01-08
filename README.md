@@ -1,4 +1,4 @@
-# HPC_the_poisson_problem
-# HPC_the_poisson_problem
+# HPC: The Poisson Problem
 
-# Hej
+Our second project in the course 02614 High Performance Computing.
+
