@@ -1,0 +1,11 @@
+
+function val = fc(r,s)
+
+val = r.x*0;
+
+val(-1 <= r.x) = 200;
+val(-1 <= r.y) = 200;
+val(-2/3 <= r.z) = 200;
+val(r.x) = 200;
+
+end
