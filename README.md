@@ -7,6 +7,10 @@ Our second project in the course 02614 High Performance Computing.
 ```
 git clone https://github.com/nikombr/HPC_the_poisson_problem.git
 ```
+or
+```
+git clone git@github.com:nikombr/HPC_the_poisson_problem.git
+```
 
 # Adding updates
 
