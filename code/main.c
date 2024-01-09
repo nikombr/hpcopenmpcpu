@@ -62,11 +62,30 @@ main(int argc, char *argv[]) {
     }
 
     // initialize and start and boundary conditions
-    init(uold, f, N, start_T);
+
+    init(u, uold, f, N, start_T);
+    /*double delta = 2.0/(N+1);
+    for (int i = 0; i < N+2; i++) {
+        for (int j = 0; j < N+2; j++) {
+            for (int k = 0; k < N+2; k++) {
+                printf("%.2f, %.2f, %.2f, %f\n",i*delta-1,j*delta-1,k*delta-1,uold[i][j][k]);
+
+            }
+        }
+    }*/
 
     // call iterator
     #ifdef _JACOBI
     jacobi(u, uold, f, N, iter_max, tolerance);
+    double delta = 2.0/(N+1);
+    for (int i = 0; i < N+2; i++) {
+        for (int j = 0; j < N+2; j++) {
+            for (int k = 0; k < N+2; k++) {
+                printf("%.2f, %.2f, %.2f, %f\n",i*delta-1,j*delta-1,k*delta-1,u[i][j][k]);
+
+            }
+        }
+    }
     #endif
 
     #ifdef _GAUSS_SEIDEL
