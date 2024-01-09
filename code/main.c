@@ -28,6 +28,8 @@ main(int argc, char *argv[]) {
     char        *output_ext    = "";
     char	output_filename[FILENAME_MAX];
     double 	***u = NULL;
+    double 	***uold = NULL;
+    double 	***f = NULL;
 
 
     /* get the paramters from the command line */
@@ -40,16 +42,19 @@ main(int argc, char *argv[]) {
     }
 
     // allocate memory
-    if ( (u = malloc_3d(N, N, N)) == NULL ) {
+    if ( (u = malloc_3d(N+2, N+2, N+2)) == NULL ) {
         perror("array u: allocation failed");
         exit(-1);
     }
-
-    // allocate memory
-    if ( (f = malloc_3d(N, N, N)) == NULL ) {
+    if ( (f = malloc_3d(N+2, N+2, N+2)) == NULL ) {
         perror("array f: allocation failed");
         exit(-1);
     }
+    if ( (uold = malloc_3d(N+2, N+2, N+2)) == NULL ) {
+        perror("array uold: allocation failed");
+        exit(-1);
+    }
+
 
     /*
      *
