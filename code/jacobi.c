@@ -4,6 +4,6 @@
 #include <math.h>
 
 void
-jacobi() {
+jacobi(int jacobi(double ***, double ***, double ***, int, int, double *)) {
     // fill in your code here
 }
