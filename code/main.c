@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "alloc3d.h"
 #include "print.h"
+#include "init.h"
 
 #ifdef _JACOBI
 #include "jacobi.h"
@@ -19,6 +20,11 @@
 int
 main(int argc, char *argv[]) {
 
+    if (argc < 5 || argc > 6) {
+        printf("Usage: %s N(int) iter_max(int) tolerance(double) start_T(double) [output_type(0, 3 or 4)]\n",argv[0]);
+        return(1);
+    }
+
     int 	N = N_DEFAULT;
     int 	iter_max = 1000;
     double	tolerance;
@@ -32,15 +38,15 @@ main(int argc, char *argv[]) {
     double 	***f = NULL;
 
 
-    /* get the paramters from the command line */
+    /* get the parameters from the command line */
     N         = atoi(argv[1]);	// grid size
     iter_max  = atoi(argv[2]);  // max. no. of iterations
     tolerance = atof(argv[3]);  // tolerance
     start_T   = atof(argv[4]);  // start T for all inner grid points
     if (argc == 6) {
-	output_type = atoi(argv[5]);  // ouput type
+	    output_type = atoi(argv[5]);  // ouput type
     }
-
+    
     // allocate memory
     if ( (u = malloc_3d(N+2, N+2, N+2)) == NULL ) {
         perror("array u: allocation failed");
@@ -55,13 +61,17 @@ main(int argc, char *argv[]) {
         exit(-1);
     }
 
+    // initialize and start and boundary conditions
+    init(uold, f, N, start_T);
 
-    /*
-     *
-     * fill in your code here 
-     *
-     *
-     */
+    // call iterator
+    #ifdef _JACOBI
+    jacobi(u, uold, f, N, iter_max, tolerance);
+    #endif
+
+    #ifdef _GAUSS_SEIDEL
+    
+    #endif
 
     // dump  results if wanted 
     switch(output_type) {
@@ -87,6 +97,8 @@ main(int argc, char *argv[]) {
 
     // de-allocate memory
     free_3d(u);
+    free_3d(uold);
+    free_3d(f);
 
     return(0);
 }
