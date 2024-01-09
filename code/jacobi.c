@@ -4,7 +4,7 @@
 #include <math.h>
 
 void
-jacobi(double ***, double ***, double ***, int N, int nmax, double *) {
+jacobi(double *** u, double *** uold, double *** f, int N, int iter_max, double *) {
     
 
     for (int n = 0; n <; n++) {

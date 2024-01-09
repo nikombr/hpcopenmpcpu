@@ -45,6 +45,12 @@ main(int argc, char *argv[]) {
         exit(-1);
     }
 
+    // allocate memory
+    if ( (f = malloc_3d(N, N, N)) == NULL ) {
+        perror("array f: allocation failed");
+        exit(-1);
+    }
+
     /*
      *
      * fill in your code here 
