@@ -25,7 +25,7 @@ def example():
     #
 
     domain = Domain(center=(0,0,0), edges=(2,2,2))
-    grid = Grid(domain, shape=(5,5,5))
+    grid = Grid(domain, shape=(11,11,11))
 
     #
     # Prepare the boundary conditions
@@ -52,6 +52,15 @@ def example():
     #
 
     solver = MultiGridSolver(rhs, bc, atol=1.0E-6)
+
+    solver.solve()
+    u = solver.solution()  # u is of type Field
+
+    # print solution
+
+    for index in u.grid.indices():
+        (x, y, z), u_val = u[index]
+        print("{:10.2f}{:10.2f}{:10.2f}{:12.6f}".format(x, y, z, u_val))
 
     try:
         solver.solve()
