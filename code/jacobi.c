@@ -20,10 +20,12 @@ jacobi(double *** u, double *** uold, double *** f, int N, int iter_max, double 
                 }
             }
         }
+        // Check convergence
+        check_convergence(u, uold, N, tolerance);
+
         // Swap arrays
         swap_arrays(u, uold);
     }
-
 
 
 }
