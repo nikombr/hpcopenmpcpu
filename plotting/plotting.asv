@@ -1,0 +1,16 @@
+
+%% Plot results
+
+clear; close all; clc;
+
+N = 5;
+
+file = "../code/results/output.txt";
+
+matrix = readmatrix(file);
+
+data = cell(N+2,1);
+
+for i=1:(N+2)
+    data{1} = matrix(((i-1)*N+2+1):((i-1)*N+2+1),:)
+end
