@@ -17,6 +17,7 @@
 
 #define N_DEFAULT 100
 
+
 int
 main(int argc, char *argv[]) {
 
@@ -62,25 +63,12 @@ main(int argc, char *argv[]) {
     }
 
     // initialize and start and boundary conditions
-
     init(u, uold, f, N, start_T);
-    /*double delta = 2.0/(N+1);
-    for (int i = 0; i < N+2; i++) {
-        for (int j = 0; j < N+2; j++) {
-            for (int k = 0; k < N+2; k++) {
-                printf("\t%.2f ",uold[i][j][k]);
-
-            }
-            printf("\n");
-
-        }
-        printf("\n\n");
-    }*/
 
     // call iterator
     #ifdef _JACOBI
     jacobi(u, uold, f, N, iter_max, &tolerance);
-    FILE *fp = fopen("results/output_x.txt", "w");
+    /*FILE *fp = fopen("results/output_x.txt", "w");
     if (fp!= NULL) {
         double delta = 2.0/(N+1);
     for (int i = 0; i < N+2; i++) {
@@ -124,30 +112,12 @@ main(int argc, char *argv[]) {
         }
         fprintf(fp,"\n\n");
     }
-    }
-    /*double delta = 2.0/(N+1);
-    for (int i = 0; i < N+2; i++) {
-        for (int j = 0; j < N+2; j++) {
-            for (int k = 0; k < N+2; k++) {
-                printf("%.2f, %.2f, %.2f, %f\n",i*delta-1,j*delta-1,k*delta-1,u[i][j][k]);
-
-            }
-        }
-    }*/
-    /*for (int i = 0; i < N+2; i++) {
-        for (int j = 0; j < N+2; j++) {
-            for (int k = 0; k < N+2; k++) {
-                printf("\t%.2f ",uold[i][j][k]);
-
-            }
-            printf("\n");
-
-        }
-        printf("\n\n");
     }*/
     #endif
 
     #ifdef _GAUSS_SEIDEL
+
+    gauss_seidel(u, uold, f, N, iter_max, &tolerance);
     
     #endif
 
