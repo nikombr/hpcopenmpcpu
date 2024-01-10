@@ -17,7 +17,7 @@ pdegplot(model,"CellLabels","on","FaceAlpha",0.5)
 
 
 specifyCoefficients(model,"m",0,"d",0,"c",1,"a",0,"f",@fc);
-m3 = generateMesh(model,"GeometricOrder","quadratic");
+m3 = generateMesh(model,"GeometricOrder","quadratic","Hmax",0.1);
 results = solvepde(model);
 u = results.NodalSolution;
 figure;
@@ -50,13 +50,15 @@ else
     is = [2,round((N+1)/6),round((N+1)/4),round((N+1)/3),round((N+1)/2),round((N+1)/3*2),round((N+1)/4*3),round((N+1)/6*5),N+1];
 end
 
+delta = 2.0/(N+1);
+
 figure('Renderer', 'painters', 'Position', [400 400 1200 1200]);
 for i=1:length(is)
     subplot(3,3,i)
     imagesc(X,X,sol{is(i)})
     axis equal
     axis tight
-    title(sprintf('$i = %d$',is(i)),'Interpreter','latex','FontSize',16)
+    title(sprintf('$i = %d, x=%.3f$',is(i),is(i)*delta-1),'Interpreter','latex','FontSize',16)
     ylabel('$y$','Interpreter','latex','FontSize',16)
     xlabel('$z$','Interpreter','latex','FontSize',16)
     ax = gca;
