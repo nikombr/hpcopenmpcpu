@@ -3,6 +3,7 @@
  */
 #include <math.h>
 #include <stdio.h>
+#include <omp.h>
 
 #define _CONVERGENCE
 
@@ -12,7 +13,7 @@ gauss_seidel(double *** u, double *** f, int N, int iter_max, double* tolerance)
     double delta = 2.0/(N+1), delta2 = delta*delta, frac = 1.0/6.0;
     double val, uold, sum = *tolerance + 1;
     int n = 0;
-
+    double start = omp_get_wtime();
     while (n < iter_max && sum > *tolerance) {
         sum = 0.0;
         for (int i = 1; i < N+1; i++) {
@@ -31,13 +32,9 @@ gauss_seidel(double *** u, double *** f, int N, int iter_max, double* tolerance)
         // Next iteration
         n++;
     }
-
-    if (sum < *tolerance) {
-        printf("It converged after %d iterations!\n",n);
-    }
-
+    double stop = omp_get_wtime() - start;
     *tolerance = sum;
-
+    printf("%d %d %.5e %.5f\n",N,n,*tolerance,stop);
     return;
 
 }
