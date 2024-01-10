@@ -10,8 +10,7 @@ void
 jacobi(double *** u, double *** uold, double *** f, int N, int iter_max, double* tolerance) {
     
     double delta = 2.0/(N+1), delta2 = delta*delta, frac = 1.0/6.0;
-    double val;
-    double sum = *tolerance + 1;
+    double val, sum = *tolerance + 1;
     int n = 0;
 
     while (n < iter_max && sum > *tolerance) {
@@ -41,7 +40,6 @@ jacobi(double *** u, double *** uold, double *** f, int N, int iter_max, double*
     }
 
     *tolerance = sum;
-
     return;
 
 }
