@@ -25,4 +25,12 @@ pdeplot3D(m3)
 subplot(1,2,2)
 pdeplot3D(model,"ColorMapData",u)
 
-model
+N = 5;
+
+xq = linspace(-1,1,N);
+[X,Y,Z] = meshgrid(xq,xq,xq);
+
+
+uintrp = interpolateSolution(results,X,Y,Z)
+
+uintrp = reshape(uintrp,[N,N,N])
