@@ -7,7 +7,6 @@ void init(double *** u, double *** uold, double *** f, int N, double start_T) {
     double delta = 2.0/(N+1);
     double fracdelta = (N+1)/2.0;
     memset(f[0][0],0,(N+2)*(N+2)*(N+2)*sizeof(double));
-    memset(uold[0][0],start_T,(N+2)*(N+2)*(N+2)*sizeof(double));
 
     int ux = floor(0.625*fracdelta), uy = floor(0.5*fracdelta), lz = ceil(1.0/3.0*fracdelta), uz = floor(fracdelta);
 
@@ -29,10 +28,17 @@ void init(double *** u, double *** uold, double *** f, int N, double start_T) {
             }
         }
     }*/
+    for (int i = 0; i < N+2; i++) {
+        for (int j = 0; j < N+2; j++) {
+            for (int k = 0; k < N+2; k++) {
+                uold[i][j][k] = start_T;
+            }
+        }
+    }
 
     for (int i = 0; i < N+2; i++) {
         for (int j = 0; j < N+2; j++) {
-
+            
             uold[0][j][i] = 20.0;
             uold[N+1][j][i] = 20.0;
 
