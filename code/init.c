@@ -27,6 +27,7 @@ void init(double *** u, double *** uold, double *** f, int N, double start_T) {
         for (int j = 1; j < N+1; j++) {
             for (int k = 1; k < N+1; k++) {
                 uold[i][j][k] = start_T;
+                u[i][j][k] = start_T;
             }
         }
     }

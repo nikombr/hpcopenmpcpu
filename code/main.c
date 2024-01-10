@@ -113,11 +113,13 @@ main(int argc, char *argv[]) {
         fprintf(fp,"\n\n");
     }
     }
+
     #endif
+    
 
     #ifdef _GAUSS_SEIDEL
 
-    gauss_seidel(uold, f, N, iter_max, &tolerance);
+    gauss_seidel(u, f, N, iter_max, &tolerance);
     
     #endif
 
@@ -145,7 +147,6 @@ main(int argc, char *argv[]) {
 
     // de-allocate memory
     free_3d(u);
-    free_3d(uold);
     free_3d(f);
 
     return(0);

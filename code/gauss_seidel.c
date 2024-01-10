@@ -2,7 +2,6 @@
  *
  */
 #include <math.h>
-#include "utility.h"
 #include <stdio.h>
 
 #define _CONVERGENCE
@@ -10,12 +9,12 @@
 void
 gauss_seidel(double *** u, double *** f, int N, int iter_max, double* tolerance) {
     
-    double delta = 2.0/(N+1);
-    double delta2 = delta*delta;
-    double frac = 1.0/6.0;
-    double val, sum, uold;
+    double delta = 2.0/(N+1), delta2 = delta*delta, frac = 1.0/6.0;
+    double sum = *tolerance + 1;
+    double val, uold;
+    int n = 0;
 
-    for (int n = 0; n < iter_max; n++) {
+    while (n < iter_max && sum > *tolerance) {
         sum = 0.0;
         for (int i = 1; i < N+1; i++) {
             for (int j = 1; j < N+1; j++) {
@@ -30,13 +29,12 @@ gauss_seidel(double *** u, double *** f, int N, int iter_max, double* tolerance)
                 }
             }
         }
-        // If convergence is reached, terminate
-        if (sum < *tolerance) {
-            *tolerance = sum;
-            printf("It converged after %d iterations!\n",n);
-            return;
-        }
+        // Next iteration
+        n++;
+    }
 
+    if (sum < *tolerance) {
+        printf("It converged after %d iterations!\n",n);
     }
 
     *tolerance = sum;
