@@ -8,7 +8,7 @@ void init(double *** u, double *** uold, double *** f, int N, double start_T) {
     double fracdelta = (N+1)/2.0;
     memset(f[0][0],0,(N+2)*(N+2)*(N+2)*sizeof(double));
 
-    int ux = floor(0.375*fracdelta), uy = floor(0.5*fracdelta), lz = ceil(1.0/3.0*fracdelta), uz = floor(fracdelta);
+    int ux = floor(0.625*fracdelta), uy = floor(0.5*fracdelta), lz = ceil(1.0/3.0*fracdelta), uz = floor(fracdelta);
 
     for (int i = 0; i < N+2; i++) {
         for (int j = 0; j < N+2; j++) {
