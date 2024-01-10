@@ -68,7 +68,7 @@ main(int argc, char *argv[]) {
     // call iterator
     #ifdef _JACOBI
     jacobi(u, uold, f, N, iter_max, &tolerance);
-    /*FILE *fp = fopen("results/output_x.txt", "w");
+    FILE *fp = fopen("results/output_x.txt", "w");
     if (fp!= NULL) {
         double delta = 2.0/(N+1);
     for (int i = 0; i < N+2; i++) {
@@ -112,7 +112,7 @@ main(int argc, char *argv[]) {
         }
         fprintf(fp,"\n\n");
     }
-    }*/
+    }
     #endif
 
     #ifdef _GAUSS_SEIDEL
