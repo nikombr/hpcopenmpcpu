@@ -12,7 +12,7 @@ void init(double *** u, double *** uold, double *** f, int N, double start_T) {
     // Set f to zero everywhere
     memset(f[0][0],0,(N+2)*(N+2)*(N+2)*sizeof(double));
     int ux = floor(0.625*fracdelta), uy = floor(0.5*fracdelta), lz = ceil(1.0/3.0*fracdelta), uz = floor(fracdelta);
-    
+
     // Overwrite a specific region
     for (int i = 1; i <= ux; i++) {
         for (int j = 1; j <= uy; j++) {
