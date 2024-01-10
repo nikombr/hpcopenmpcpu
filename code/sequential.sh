@@ -11,7 +11,7 @@
 rm -rf results/sequential_j.txt
 rm -rf results/sequential_gs.txt
 
-for N in {55..125..3};
+for N in {5..125..3};
 do  
     ./poisson_j $N 100000 1e-8 20 >> results/sequential_j.txt
     ./poisson_gs $N 100000 1e-8 20 >> results/sequential_gs.txt
