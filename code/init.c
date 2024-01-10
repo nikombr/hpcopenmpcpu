@@ -11,25 +11,6 @@ void init(double *** u, double *** uold, double *** f, int N, double start_T) {
 
     int ux = floor(0.625*fracdelta), uy = floor(0.5*fracdelta), lz = ceil(1.0/3.0*fracdelta), uz = floor(fracdelta);
 
-    /*for (int i = 0; i < N+2; i++) {
-        for (int j = 0; j < N+2; j++) {
-            for (int k = 0; k < N+2; k++) { 
-                if (j == 0) {
-                    uold[i][j][k] = 0;
-                    u[i][j][k] = 0;
-                }
-                else if (i == 0 || i == N+1 || j == N+1 || k == 0 || k == N+1) {
-                    uold[i][j][k] = 20.0;
-                    u[i][j][k] = 20.0;
-                }
-                else {
-                    uold[i][j][k] = start_T;
-                }
-                
-            }
-        }
-    }*/
-
     for (int i = 0; i < N+2; i++) {
         for (int j = 0; j < N+2; j++) {
 
