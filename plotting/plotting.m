@@ -1,11 +1,11 @@
 
-%% Plot results
+%% Plot results x
 
 clear; close all; clc;
 
 N = 55;
 
-file = "../code/results/output.txt";
+file = "../code/results/output_x.txt";
 
 matrix = readmatrix(file);
 
@@ -26,7 +26,7 @@ end
 
 delta = 2.0/(N+1);
 
-figure('Renderer', 'painters', 'Position', [400 400 1200 1200]);
+figure('Renderer', 'painters', 'Position', [400 400 820 700]);
 for i=1:length(is)
     subplot(3,3,i)
     imagesc(X,X,data{is(i)})
@@ -40,5 +40,101 @@ for i=1:length(is)
     colorbar
 end
 
+sgtitle("$\textbf{C Implementation}$","fontsize",18,'interpreter','latex')
 
-exportgraphics(gcf,sprintf('solution_%d.png',N),'Resolution',300);
+
+exportgraphics(gcf,sprintf('solution_x_%d.png',N),'Resolution',300);
+
+
+%% Plot results y
+
+clear; close all; clc;
+
+N = 55;
+
+file = "../code/results/output_y.txt";
+
+matrix = readmatrix(file);
+
+data = cell(N+2,1);
+
+for i=1:(N+2)
+    data{i} = matrix(((i-1)*(N+2)+1):(i*(N+2)),:);
+end
+
+
+X = linspace(-1,1,N+2);
+
+if N == 5
+    is = [2,round((N+1)/2),N+1];
+else
+    is = [2,round((N+1)/6),round((N+1)/4),round((N+1)/3),round((N+1)/2),round((N+1)/3*2),round((N+1)/4*3),round((N+1)/6*5),N+1];
+end
+
+delta = 2.0/(N+1);
+
+figure('Renderer', 'painters', 'Position', [400 400 820 700]);
+for i=1:length(is)
+    subplot(3,3,i)
+    imagesc(X,X,data{is(i)})
+    axis equal
+    axis tight
+    title(sprintf('$j = %d, y=%.3f$',is(i),is(i)*delta-1),'Interpreter','latex','FontSize',16)
+    ylabel('$x$','Interpreter','latex','FontSize',16)
+    xlabel('$z$','Interpreter','latex','FontSize',16)
+    ax = gca;
+    ax.CLim = [0 20];
+    colorbar
+end
+
+sgtitle("$\textbf{C Implementation}$","fontsize",18,'interpreter','latex')
+
+
+exportgraphics(gcf,sprintf('solution_y_%d.png',N),'Resolution',300);
+
+%% Plot results z
+
+clear; close all; clc;
+
+N = 55;
+
+file = "../code/results/output_z.txt";
+
+matrix = readmatrix(file);
+
+data = cell(N+2,1);
+
+for i=1:(N+2)
+    data{i} = matrix(((i-1)*(N+2)+1):(i*(N+2)),:);
+end
+
+
+X = linspace(-1,1,N+2);
+
+if N == 5
+    is = [2,round((N+1)/2),N+1];
+else
+    is = [2,round((N+1)/6),round((N+1)/4),round((N+1)/3),round((N+1)/2),round((N+1)/3*2),round((N+1)/4*3),round((N+1)/6*5),N+1];
+end
+
+delta = 2.0/(N+1);
+
+figure('Renderer', 'painters', 'Position', [400 400 820 700]);
+for i=1:length(is)
+    subplot(3,3,i)
+    imagesc(X,X,data{is(i)})
+    axis equal
+    axis tight
+    title(sprintf('$k = %d, z=%.3f$',is(i),is(i)*delta-1),'Interpreter','latex','FontSize',16)
+    ylabel('$y$','Interpreter','latex','FontSize',16)
+    xlabel('$x$','Interpreter','latex','FontSize',16)
+    ax = gca;
+    ax.CLim = [0 20];
+    colorbar
+end
+
+sgtitle("$\textbf{C Implementation}$","fontsize",18,'interpreter','latex')
+
+
+exportgraphics(gcf,sprintf('solution_z_%d.png',N),'Resolution',300);
+
