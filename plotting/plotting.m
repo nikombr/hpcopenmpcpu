@@ -3,7 +3,7 @@
 
 clear; close all; clc;
 
-N = 5;
+N = 55;
 
 file = "../code/results/output.txt";
 

@@ -26,7 +26,7 @@ pdeplot3D(m3)
 subplot(1,2,2)
 pdeplot3D(model,"ColorMapData",u)
 
-N = 5;
+N = 55;
 
 xq = linspace(-1,1,N+2);
 [X,Y,Z] = meshgrid(xq,xq,xq);
