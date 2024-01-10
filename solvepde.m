@@ -17,7 +17,7 @@ pdegplot(model,"CellLabels","on","FaceAlpha",0.5)
 
 
 specifyCoefficients(model,"m",0,"d",0,"c",1,"a",0,"f",@fc);
-m3 = generateMesh(model,"GeometricOrder","linear");
+m3 = generateMesh(model,"GeometricOrder","quadratic");
 results = solvepde(model);
 u = results.NodalSolution;
 figure;
@@ -32,39 +32,37 @@ xq = linspace(-1,1,N+2);
 [X,Y,Z] = meshgrid(xq,xq,xq);
 
 
-uintrp = interpolateSolution(results,X,Y,Z)
+uintrp = interpolateSolution(results,X,Y,Z);
 
-uintrp = reshape(uintrp,[N+2,N+2,N+2])
+uintrp = reshape(uintrp,[N+2,N+2,N+2]);
 
-sol = cell(N+2,1)
+sol = cell(N+2,1);
 
 for i=1:(N+2)
-    sol{i} = reshape(uintrp(:,i,:),[N+2,N+2])
+    sol{i} = reshape(uintrp(:,i,:),[N+2,N+2]);
 end
 
 X = linspace(-1,1,N+2);
 
-figure;
-subplot(1,3,1)
-imagesc(X,X,sol{2})
-axis equal
-axis tight
-title(sprintf('$i = %d$',1),'Interpreter','latex','FontSize',16)
-ylabel('$y$','Interpreter','latex','FontSize',16)
-xlabel('$z$','Interpreter','latex','FontSize',16)
-subplot(1,3,2)
-imagesc(X,X,sol{round((N+1)/2)})
-axis equal
-axis tight
-title(sprintf('$i = %d$',round((N+1)/2)),'Interpreter','latex','FontSize',16)
-ylabel('$y$','Interpreter','latex','FontSize',16)
-xlabel('$z$','Interpreter','latex','FontSize',16)
-subplot(1,3,3)
-imagesc(X,X,sol{N+1})
-axis equal
-axis tight
-title(sprintf('$i = %d$',N),'Interpreter','latex','FontSize',16)
-ylabel('$y$','Interpreter','latex','FontSize',16)
-xlabel('$z$','Interpreter','latex','FontSize',16)
+if N == 5
+    is = [2,round((N+1)/2),N+1];
+else
+    is = [2,round((N+1)/6),round((N+1)/4),round((N+1)/3),round((N+1)/2),round((N+1)/3*2),round((N+1)/4*3),round((N+1)/6*5),N+1];
+end
 
-exportgraphics(gcf,sprintf('matlab_solution_%d.png',N),'Resolution',300);
+figure('Renderer', 'painters', 'Position', [400 400 1200 1200]);
+for i=1:length(is)
+    subplot(3,3,i)
+    imagesc(X,X,sol{is(i)})
+    axis equal
+    axis tight
+    title(sprintf('$i = %d$',is(i)),'Interpreter','latex','FontSize',16)
+    ylabel('$y$','Interpreter','latex','FontSize',16)
+    xlabel('$z$','Interpreter','latex','FontSize',16)
+    ax = gca;
+    ax.CLim = [0 20];
+    colorbar
+end
+
+
+exportgraphics(gcf,sprintf('plotting/matlab_solution_%d.png',N),'Resolution',300);
