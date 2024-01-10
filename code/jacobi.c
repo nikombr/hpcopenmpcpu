@@ -8,7 +8,7 @@
 void
 jacobi(double *** u, double *** uold, double *** f, int N, int iter_max, double tolerance) {
     
-    double delta = 2.0/N;
+    double delta = 2.0/(N+1);
     double delta2 = delta*delta;
     double frac = 1.0/6.0;
 
@@ -26,32 +26,8 @@ jacobi(double *** u, double *** uold, double *** f, int N, int iter_max, double 
             printf("Converged!\n");
             return;
         }
-
-        // Swap arrays
-        /*printf("hej2\n");
-        for (int k = 0; k < N+2; k++) {
-            printf("%.2f ",u[2][3][k]);
-
-        }
-        printf("\n");
-        for (int k = 0; k < N+2; k++) {
-            printf("%.2f ",uold[2][3][k]);
-
-        }
-
-        printf("\n");*/
         swap_arrays(u,uold,N);
-        /*printf("hej\n");
-        for (int k = 0; k < N+2; k++) {
-            printf("%.2f ",u[2][3][k]);
 
-        }
-        printf("\n");
-        for (int k = 0; k < N+2; k++) {
-            printf("%.2f ",uold[2][3][k]);
-
-        }
-        printf("\n");*/
     }
 
 

@@ -68,16 +68,34 @@ main(int argc, char *argv[]) {
     for (int i = 0; i < N+2; i++) {
         for (int j = 0; j < N+2; j++) {
             for (int k = 0; k < N+2; k++) {
-                printf("%.2f, %.2f, %.2f, %f\n",i*delta-1,j*delta-1,k*delta-1,uold[i][j][k]);
+                printf("\t%.2f ",uold[i][j][k]);
 
             }
+            printf("\n");
+
         }
+        printf("\n\n");
     }*/
 
     // call iterator
     #ifdef _JACOBI
     jacobi(u, uold, f, N, iter_max, tolerance);
-    double delta = 2.0/(N+1);
+    FILE *fp = fopen("results/output.txt", "w");
+    if (fp!= NULL) {
+        double delta = 2.0/(N+1);
+    for (int i = 0; i < N+2; i++) {
+        for (int j = 0; j < N+2; j++) {
+            for (int k = 0; k < N+2; k++) {
+                fprintf(fp,"\t%.2f ",uold[i][j][k]);
+
+            }
+            fprintf(fp,"\n");
+
+        }
+        fprintf(fp,"\n\n");
+    }
+    }
+    /*double delta = 2.0/(N+1);
     for (int i = 0; i < N+2; i++) {
         for (int j = 0; j < N+2; j++) {
             for (int k = 0; k < N+2; k++) {
@@ -85,7 +103,18 @@ main(int argc, char *argv[]) {
 
             }
         }
-    }
+    }*/
+    /*for (int i = 0; i < N+2; i++) {
+        for (int j = 0; j < N+2; j++) {
+            for (int k = 0; k < N+2; k++) {
+                printf("\t%.2f ",uold[i][j][k]);
+
+            }
+            printf("\n");
+
+        }
+        printf("\n\n");
+    }*/
     #endif
 
     #ifdef _GAUSS_SEIDEL
@@ -99,13 +128,13 @@ main(int argc, char *argv[]) {
 	    break;
 	case 3:
 	    output_ext = ".bin";
-	    sprintf(output_filename, "%s_%d%s", output_prefix, N, output_ext);
+	    sprintf(output_filename, "results/%s_%d%s", output_prefix, N, output_ext);
 	    fprintf(stderr, "Write binary dump to %s: ", output_filename);
 	    print_binary(output_filename, N, u);
 	    break;
 	case 4:
 	    output_ext = ".vtk";
-	    sprintf(output_filename, "%s_%d%s", output_prefix, N, output_ext);
+	    sprintf(output_filename, "results/%s_%d%s", output_prefix, N, output_ext);
 	    fprintf(stderr, "Write VTK file to %s: ", output_filename);
 	    print_vtk(output_filename, N, u);
 	    break;
