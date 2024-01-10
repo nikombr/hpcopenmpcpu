@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 void
-jacobi(double *** u, double *** uold, double *** f, int N, int iter_max, double tolerance) {
+jacobi(double *** u, double *** uold, double *** f, int N, int iter_max, double* tolerance) {
     
     double delta = 2.0/(N+1);
     double delta2 = delta*delta;
@@ -22,7 +22,7 @@ jacobi(double *** u, double *** uold, double *** f, int N, int iter_max, double 
             }
         }
         // Check convergence
-        if (check_convergence(u, uold, N, tolerance)) {
+        if (check_convergence(u, uold, N, *tolerance)) {
             printf("Converged!\n");
             return;
         }

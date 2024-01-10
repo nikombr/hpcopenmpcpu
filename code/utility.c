@@ -16,7 +16,7 @@ void swap_arrays(double*** A, double***B, int N) {
     //B[0][0] = tmp;
 }
 
-int check_convergence(double*** A, double***B, int N, double tolerance) {
+int check_convergence(double*** A, double***B, int N, double  tolerance) {
     // Check convergence with Frobenius norm
     double sum = 0;
     double val;
@@ -29,6 +29,7 @@ int check_convergence(double*** A, double***B, int N, double tolerance) {
             }
         }
     }
+
 
     return (sum < tolerance); 
 

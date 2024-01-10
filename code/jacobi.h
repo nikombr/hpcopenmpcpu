@@ -6,6 +6,6 @@
 #ifndef _JACOBI_H
 #define _JACOBI_H
 
-int jacobi(double *** u, double *** uold, double *** f, int N, int iter_max, double tolerance);
+int jacobi(double *** u, double *** uold, double *** f, int N, int iter_max, double *tolerance);
 
 #endif
