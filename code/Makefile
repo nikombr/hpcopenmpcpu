@@ -2,8 +2,8 @@
 #
 TARGET_SEQ_J  		= sequential_j		# Jacobi sequential
 TARGET_SEQ_GS 		= sequential_gs		# Gauss-Seidel sequential
-TARGET_PAR_BAS_J  	= par_base_j		# Jacobi parallel baseline
-TARGET_PAR_BAS_GS 	= par_base_gs		# Gauss-Seidel parallel basline
+TARGET_PAR_BAS_J  	= par_bas_j			# Jacobi parallel baseline
+TARGET_PAR_BAS_GS 	= par_bas_gs		# Gauss-Seidel parallel basline
 TARGET_PAR_J  		= parallel_j		# Jacobi parallel
 TARGET_PAR_GS 		= parallel_gs		# Gauss-Seidel parallel
 
@@ -12,15 +12,15 @@ OBJECTS	= print.o alloc3d.o init.o
 
 MAIN_SEQ_J		= main_seq_j.o
 MAIN_SEQ_GS 	= main_seq_gs.o
-MAIN_PAR_BAS_J	= main_par_base_j.o
-MAIN_PAR_BAS_GS = main_par_base_gs.o
+MAIN_PAR_BAS_J	= main_par_bas_j.o
+MAIN_PAR_BAS_GS = main_par_bas_gs.o
 MAIN_PAR_J		= main_par_j.o
 MAIN_PAR_GS 	= main_par_gs.o
 
 OBJS_SEQ_J		= $(MAIN_SEQ_J) 		jacobi.o
 OBJS_SEQ_GS		= $(MAIN_SEQ_GS) 		gauss_seidel.o
-OBJS_PAR_BAS_J	= $(MAIN_PAR_BAS_J) 	jacobi_par_base.o
-OBJS_PAR_BAS_GS	= $(MAIN_PAR_BAS_GS) 	martin.o
+OBJS_PAR_BAS_J	= $(MAIN_PAR_BAS_J) 	jacobi_par_bas.o
+OBJS_PAR_BAS_GS	= $(MAIN_PAR_BAS_GS) 	gauss_seidel_par_bas.o
 OBJS_PAR_J		= $(MAIN_PAR_J) 		jacobi_parallel.o
 OBJS_PAR_GS		= $(MAIN_PAR_GS) 		gauss_seidel_parallel.o
 
@@ -85,8 +85,8 @@ realclean: clean
 
 main_seq_j.o: 		main.c print.h jacobi.h init.h 
 main_seq_gs.o: 		main.c print.h gauss_seidel.h init.h 
-main_par_base_j.o: 	main.c print.h jacobi_par_base.h init.h 
-martin.o: main.c print.h martin.h init.h 
+main_par_bas_j.o: 	main.c print.h jacobi_par_bas.h init.h 
+main_par_bas_gs.o: 	main.c print.h gauss_seidel_par_bas.h init.h 
 main_par_j.o: 		main.c print.h jacobi_parallel.h init.h 
 main_par_gs.o: 		main.c print.h gauss_seidel_parallel.h init.h 
 print.o: print.h

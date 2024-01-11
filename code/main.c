@@ -16,11 +16,11 @@
 #endif
 
 #ifdef _JACOBI_PAR_BAS
-#include "jacobi_par_base.h"
+#include "jacobi_par_bas.h"
 #endif
 
 #ifdef _GAUSS_SEIDEL_PAR_BAS
-#include "martin.h"
+#include "gauss_seidel_par_bas.h"
 #endif
 
 #ifdef _JACOBI_PAR
@@ -94,11 +94,11 @@ main(int argc, char *argv[]) {
     #endif
     #ifdef _JACOBI_PAR_BAS
     printf("Running parallel baseline Jacobi with %d number of threads!\n",omp_get_max_threads());
-    jacobi_par_base(u, uold, f, N, iter_max, &tolerance);
+    jacobi_par_bas(u, uold, f, N, iter_max, &tolerance);
     #endif
     #ifdef _GAUSS_SEIDEL_PAR_BAS
     printf("Running parallel baseline Gauss-Seidel with %d number of threads!\n",omp_get_max_threads());
-    gauss_seidel_parallel_base(u, f, N, iter_max, &tolerance);
+    gauss_seidel_par_bas(u, f, N, iter_max, &tolerance);
     FILE *fp = fopen("results/output_x.txt", "w");
     if (fp!= NULL) {
         double delta = 2.0/(N+1);

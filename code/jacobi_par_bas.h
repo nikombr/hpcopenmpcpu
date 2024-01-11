@@ -6,6 +6,6 @@
 #ifndef _JACOBI_PAR_BAS_H
 #define _JACOBI_PAR_BAS_H
 
-int jacobi_par_base(double *** u, double *** uold, double *** f, int N, int iter_max, double *tolerance);
+int jacobi_par_bas(double *** u, double *** uold, double *** f, int N, int iter_max, double *tolerance);
 
 #endif

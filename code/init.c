@@ -4,6 +4,14 @@
 #include <stdio.h>
 #include <omp.h>
 
+                                                                                                                                                                                                                                                                                                                                   
+
+void omp_get_schedule(omp_sched_t *kind, int *chunk_size)
+{
+*kind = omp_sched_static;
+*chunk_size = 0;
+}
+
 void init(double *** u, double *** uold, double *** f, int N, double start_T) {
 
     // Initialize values
@@ -12,17 +20,15 @@ void init(double *** u, double *** uold, double *** f, int N, double start_T) {
 
     // Set f to zero everywhere
     if (omp_get_max_threads() > 1) {
-        printf("HEJ JEG ER HER!!\n");
         for (int i = 0; i <= N+1; i++) {
             for (int j = 0; j <= N+1; j++) {
                 for (int k = 0; k <= N+1; k++) {   
-                    f[i][j][k] = 200;
+                    f[i][j][k] = 0;
                 }
             }
         }
     }
     else memset(f[0][0],0,(N+2)*(N+2)*(N+2)*sizeof(double));
-
 
     // Overwrite a specific region
     int ux = floor(0.625*fracdelta), uy = floor(0.5*fracdelta), lz = ceil(1.0/3.0*fracdelta), uz = floor(fracdelta);
