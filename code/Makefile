@@ -20,7 +20,7 @@ MAIN_PAR_GS 	= main_par_gs.o
 OBJS_SEQ_J		= $(MAIN_SEQ_J) 		jacobi.o
 OBJS_SEQ_GS		= $(MAIN_SEQ_GS) 		gauss_seidel.o
 OBJS_PAR_BAS_J	= $(MAIN_PAR_BAS_J) 	jacobi_par_base.o
-OBJS_PAR_BAS_GS	= $(MAIN_PAR_BAS_GS) 	gauss_seidel_par_base.o
+OBJS_PAR_BAS_GS	= $(MAIN_PAR_BAS_GS) 	martin.o
 OBJS_PAR_J		= $(MAIN_PAR_J) 		jacobi_parallel.o
 OBJS_PAR_GS		= $(MAIN_PAR_GS) 		gauss_seidel_parallel.o
 
@@ -86,7 +86,7 @@ realclean: clean
 main_seq_j.o: 		main.c print.h jacobi.h init.h 
 main_seq_gs.o: 		main.c print.h gauss_seidel.h init.h 
 main_par_base_j.o: 	main.c print.h jacobi_par_base.h init.h 
-main_par_base_gs.o: main.c print.h gauss_seidel_par_base.h init.h 
+martin.o: main.c print.h martin.h init.h 
 main_par_j.o: 		main.c print.h jacobi_parallel.h init.h 
 main_par_gs.o: 		main.c print.h gauss_seidel_parallel.h init.h 
 print.o: print.h

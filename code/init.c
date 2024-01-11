@@ -2,6 +2,7 @@
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
+#include <omp.h>
 
 void init(double *** u, double *** uold, double *** f, int N, double start_T) {
 
@@ -10,10 +11,21 @@ void init(double *** u, double *** uold, double *** f, int N, double start_T) {
     double fracdelta = (N+1)/2.0;
 
     // Set f to zero everywhere
-    memset(f[0][0],0,(N+2)*(N+2)*(N+2)*sizeof(double));
-    int ux = floor(0.625*fracdelta), uy = floor(0.5*fracdelta), lz = ceil(1.0/3.0*fracdelta), uz = floor(fracdelta);
+    if (omp_get_max_threads() > 1) {
+        printf("HEJ JEG ER HER!!\n");
+        for (int i = 0; i <= N+1; i++) {
+            for (int j = 0; j <= N+1; j++) {
+                for (int k = 0; k <= N+1; k++) {   
+                    f[i][j][k] = 200;
+                }
+            }
+        }
+    }
+    else memset(f[0][0],0,(N+2)*(N+2)*(N+2)*sizeof(double));
+
 
     // Overwrite a specific region
+    int ux = floor(0.625*fracdelta), uy = floor(0.5*fracdelta), lz = ceil(1.0/3.0*fracdelta), uz = floor(fracdelta);
     for (int i = 1; i <= ux; i++) {
         for (int j = 1; j <= uy; j++) {
             for (int k = lz; k <= uz; k++) {   
