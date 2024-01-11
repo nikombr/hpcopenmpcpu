@@ -107,6 +107,51 @@ main(int argc, char *argv[]) {
     #ifdef _GAUSS_SEIDEL_PAR
     printf("Running parallel Gauss-Seidel with %d number of threads!\n",omp_get_max_threads());
     gauss_seidel(u, f, N, iter_max, &tolerance);
+    FILE *fp = fopen("results/output_x.txt", "w");
+    if (fp!= NULL) {
+        double delta = 2.0/(N+1);
+    for (int i = 0; i < N+2; i++) {
+        for (int j = 0; j < N+2; j++) {
+            for (int k = 0; k < N+2; k++) {
+                fprintf(fp,"\t%.2f ",uold[i][j][k]);
+
+            }
+            fprintf(fp,"\n");
+
+        }
+        fprintf(fp,"\n\n");
+    }
+    }
+    fp = fopen("results/output_y.txt", "w");
+    if (fp!= NULL) {
+        double delta = 2.0/(N+1);
+    for (int j = 0; j < N+2; j++) {
+        for (int i = 0; i < N+2; i++) {
+            for (int k = 0; k < N+2; k++) {
+                fprintf(fp,"\t%.2f ",uold[i][j][k]);
+
+            }
+            fprintf(fp,"\n");
+
+        }
+        fprintf(fp,"\n\n");
+    }
+    }
+    fp = fopen("results/output_z.txt", "w");
+    if (fp!= NULL) {
+        double delta = 2.0/(N+1);
+    for (int k = 0; k < N+2; k++) {
+        for (int j = 0; j < N+2; j++) {
+            for (int i = 0; i < N+2; i++) {
+                fprintf(fp,"\t%.2f ",uold[i][j][k]);
+
+            }
+            fprintf(fp,"\n");
+
+        }
+        fprintf(fp,"\n\n");
+    }
+    }
     #endif
 
     // dump  results if wanted 

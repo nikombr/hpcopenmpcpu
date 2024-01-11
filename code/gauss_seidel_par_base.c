@@ -14,7 +14,7 @@ gauss_seidel(double *** u, double *** f, int N, int iter_max, double* tolerance)
     double start = omp_get_wtime();
     while (n < iter_max && sum > *tolerance) {
         sum = 0.0;
-        #pragma omp for ordered(2)
+        #pragma omp parallel for ordered(2) private(val)
         for (int i = 1; i < N+1; i++) {
             for (int j = 1; j < N+1; j++) {
                 #pragma omp ordered depend(sink: i-1,j) depend(sink: i,j-1)
