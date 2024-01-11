@@ -105,7 +105,7 @@ main(int argc, char *argv[]) {
     for (int i = 0; i < N+2; i++) {
         for (int j = 0; j < N+2; j++) {
             for (int k = 0; k < N+2; k++) {
-                fprintf(fp,"\t%.2f ",uold[i][j][k]);
+                fprintf(fp,"\t%.2f ",u[i][j][k]);
 
             }
             fprintf(fp,"\n");
@@ -120,7 +120,7 @@ main(int argc, char *argv[]) {
     for (int j = 0; j < N+2; j++) {
         for (int i = 0; i < N+2; i++) {
             for (int k = 0; k < N+2; k++) {
-                fprintf(fp,"\t%.2f ",uold[i][j][k]);
+                fprintf(fp,"\t%.2f ",u[i][j][k]);
 
             }
             fprintf(fp,"\n");
@@ -135,7 +135,7 @@ main(int argc, char *argv[]) {
     for (int k = 0; k < N+2; k++) {
         for (int j = 0; j < N+2; j++) {
             for (int i = 0; i < N+2; i++) {
-                fprintf(fp,"\t%.2f ",uold[i][j][k]);
+                fprintf(fp,"\t%.2f ",u[i][j][k]);
 
             }
             fprintf(fp,"\n");
