@@ -1,35 +1,35 @@
-/* jacobi.c - Poisson problem in 3d
- * 
+/* gauss_seidel.c - Poisson problem in 3d
+ *
  */
 #include <math.h>
 #include <stdio.h>
 #include <omp.h>
 
 void
-jacobi(double *** u, double *** uold, double *** f, int N, int iter_max, double* tolerance) {
+gauss_seidel(double *** u, double *** f, int N, int iter_max, double* tolerance) {
     
     double delta = 2.0/(N+1), delta2 = delta*delta, frac = 1.0/6.0;
-    double val, sum = *tolerance + 1;
+    double val, uold, sum = *tolerance + 1;
     int n = 0;
     double start = omp_get_wtime();
     while (n < iter_max && sum > *tolerance) {
         sum = 0.0;
+        #pragma omp for ordered(2)
         for (int i = 1; i < N+1; i++) {
             for (int j = 1; j < N+1; j++) {
+                #pragma omp ordered depend(sink: i-1,j) depend(sink: i,j-1)
                 for (int k = 1; k < N+1; k++) {
+                    // Save last
+                    uold = u[i][j][k];
                     // Do iteration
-                    u[i][j][k] = frac*(uold[i-1][j][k] + uold[i+1][j][k] + uold[i][j-1][k] + uold[i][j+1][k] + uold[i][j][k-1] + uold[i][j][k+1] + delta2*f[i][j][k]);
+                    u[i][j][k] = frac*(u[i-1][j][k] + u[i+1][j][k] + u[i][j-1][k] + u[i][j+1][k] + u[i][j][k-1] + u[i][j][k+1] + delta2*f[i][j][k]);
                     // Check convergence with Frobenius norm
-                    val = u[i][j][k] - uold[i][j][k];
+                    val = u[i][j][k] - uold;
                     sum += val*val;
                 }
+                #pragma omp ordered depend(source)
             }
         }
-        // Swap addresses
-        double ***tmp;
-        tmp = u;
-        u = uold;
-        uold = tmp;
         // Next iteration
         n++;
     }
