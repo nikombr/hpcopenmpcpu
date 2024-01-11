@@ -8,8 +8,8 @@
 ##BSUB -N # send mail when done
 #BSUB -R "span[hosts=1]"
 
-N=165 ## 55, 165, 275, 385
-ITER=10000 ## 350000, 10000, 2000, 800
+N=275 ## 55, 165, 275, 385
+ITER=1500 ## 200000, 10000, 1500, 600
 TOLERANCE=-1
 START_T=5
 INIT="old" ## "old" or "init"
