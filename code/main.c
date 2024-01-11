@@ -16,19 +16,19 @@
 #endif
 
 #ifdef _JACOBI_PAR_BAS
-#include "jacobi.h"
+#include "jacobi_par_base.h"
 #endif
 
 #ifdef _GAUSS_SEIDEL_PAR_BAS
-#include "gauss_seidel.h"
+#include "gauss_seidel_par_base.h"
 #endif
 
 #ifdef _JACOBI_PAR
-#include "jacobi.h"
+#include "jacobi_parallel.h"
 #endif
 
 #ifdef _GAUSS_SEIDEL_PAR
-#include "gauss_seidel.h"
+#include "gauss_seidel_parallel.h"
 #endif
 
 #include <omp.h>
@@ -94,11 +94,11 @@ main(int argc, char *argv[]) {
     #endif
     #ifdef _JACOBI_PAR_BAS
     printf("Running parallel baseline Jacobi with %d number of threads!\n",omp_get_max_threads());
-    jacobi(u, uold, f, N, iter_max, &tolerance);
+    jacobi_par_base(u, uold, f, N, iter_max, &tolerance);
     #endif
     #ifdef _GAUSS_SEIDEL_PAR_BAS
     printf("Running parallel baseline Gauss-Seidel with %d number of threads!\n",omp_get_max_threads());
-    gauss_seidel(u, f, N, iter_max, &tolerance);
+    gauss_seidel_par_base(u, f, N, iter_max, &tolerance);
     FILE *fp = fopen("results/output_x.txt", "w");
     if (fp!= NULL) {
         double delta = 2.0/(N+1);
@@ -147,11 +147,11 @@ main(int argc, char *argv[]) {
     #endif
     #ifdef _JACOBI_PAR
     printf("Running parallel Jacobi with %d number of threads!\n",omp_get_max_threads());
-    jacobi(u, uold, f, N, iter_max, &tolerance);
+    jacobi_parallel(u, uold, f, N, iter_max, &tolerance);
     #endif
     #ifdef _GAUSS_SEIDEL_PAR
     printf("Running parallel Gauss-Seidel with %d number of threads!\n",omp_get_max_threads());
-    gauss_seidel(u, f, N, iter_max, &tolerance);
+    gauss_seidel_parallel(u, f, N, iter_max, &tolerance);
     #endif
 
     // dump  results if wanted 

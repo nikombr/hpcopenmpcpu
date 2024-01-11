@@ -6,7 +6,7 @@
 #include <omp.h>
 
 void
-jacobi(double *** u, double *** uold, double *** f, int N, int iter_max, double* tolerance) {
+jacobi_par_base(double *** u, double *** uold, double *** f, int N, int iter_max, double* tolerance) {
     
     double delta = 2.0/(N+1), delta2 = delta*delta, frac = 1.0/6.0;
     double val, sum = *tolerance + 1;
