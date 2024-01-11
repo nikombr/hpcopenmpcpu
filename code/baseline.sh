@@ -8,11 +8,11 @@
 ##BSUB -N # send mail when done
 #BSUB -R "span[hosts=1]"
 
-N=165 ## 55, 165, 275, 385
-ITER=8000 ## 200000, 8000, 1500, 600
+N=385 ## 55, 165, 275, 385
+ITER=600 ## 200000, 8000, 1500, 600
 TOLERANCE=-1
 START_T=5
-INIT="old" ## "old" or "init"
+INIT="init" ## "old" or "init"
 
 lscpu
 

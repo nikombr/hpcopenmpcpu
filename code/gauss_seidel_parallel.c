@@ -15,11 +15,11 @@ gauss_seidel_parallel(double *** u, double *** f, int N, int iter_max, double* t
     double start = omp_get_wtime();
      while (n < iter_max && sum > *tolerance) {
         sum = 0.0;
-        #pragma omp parallel for ordered(2) private(val,uold,i,j,k) schedule(static,1) reduction(+:sum)
-        for ( i = 1; i < N+1; i++) {
-            for ( j = 1; j < N+1; j++) {
+        #pragma omp parallel for ordered(2) private(val,uold) schedule(static,1) reduction(+:sum)
+        for (int i = 1; i < N+1; i++) {
+            for (int j = 1; j < N+1; j++) {
                 #pragma omp ordered depend(sink:i-1,j) depend(sink:i,j-1)
-                for ( k = 1; k < N+1; k++) {
+                for (int k = 1; k < N+1; k++) {
                     // Save last
                     uold = u[i][j][k];
                     // Do iteration

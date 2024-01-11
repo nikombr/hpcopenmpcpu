@@ -1,0 +1,2 @@
+Running parallel Jacobi with 1 number of threads!
+55 200000 0.00000e+00 84.35659
