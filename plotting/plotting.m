@@ -18,27 +18,30 @@ end
 
 X = linspace(-1,1,N+2);
 
-if N == 5
-    is = [2,round((N+1)/2),N+1];
-else
-    is = [2,round((N+1)/6),round((N+1)/4),round((N+1)/3),round((N+1)/2),round((N+1)/3*2),round((N+1)/4*3),round((N+1)/6*5),N+1];
-end
+is = [2,round((N+2)/6),floor((N+1)/4)+1,round((N+1)/3),floor((N+1)/2)+1,round((N+1)/3*2)+2,floor((N+1)/4*3)+1,round((N+1)/6*5)+1,N+1];
 
 delta = 2.0/(N+1);
 
-figure('Renderer', 'painters', 'Position', [400 400 820 700]);
+figure('Renderer', 'painters', 'Position', [400 400 750 700]);
+t = tiledlayout(3,3,'TileSpacing','compact');
 for i=1:length(is)
-    subplot(3,3,i)
+    nexttile;
     imagesc(X,X,data{is(i)})
     axis equal
     axis tight
-    title(sprintf('$i = %d, x=%.3f$',is(i),is(i)*delta-1),'Interpreter','latex','FontSize',16)
-    ylabel('$y$','Interpreter','latex','FontSize',16)
-    xlabel('$z$','Interpreter','latex','FontSize',16)
+    title(sprintf('$i = %d, x=%.3f$',is(i)-1,(is(i)-1)*delta-1),'Interpreter','latex','FontSize',16)
+    if i==1 | i==4 | i==7
+        ylabel('$y$','Interpreter','latex','FontSize',16)
+    end
+    if i >6
+        xlabel('$z$','Interpreter','latex','FontSize',16)
+    end
     ax = gca;
     ax.CLim = [0 20];
-    colorbar
 end
+
+cl = colorbar
+cl.Layout.Tile = 'east';
 
 sgtitle("$\textbf{C Implementation}$","fontsize",18,'interpreter','latex')
 
@@ -65,27 +68,31 @@ end
 
 X = linspace(-1,1,N+2);
 
-if N == 5
-    is = [2,round((N+1)/2),N+1];
-else
-    is = [2,round((N+1)/6),round((N+1)/4),round((N+1)/3),round((N+1)/2),round((N+1)/3*2),round((N+1)/4*3),round((N+1)/6*5),N+1];
-end
+is = [2,round((N+2)/6),floor((N+1)/4)+1,round((N+1)/3),floor((N+1)/2)+1,round((N+1)/3*2)+2,floor((N+1)/4*3)+1,round((N+1)/6*5)+1,N+1];
 
 delta = 2.0/(N+1);
 
-figure('Renderer', 'painters', 'Position', [400 400 820 700]);
+figure('Renderer', 'painters', 'Position', [400 400 750 700]);
+t = tiledlayout(3,3,'TileSpacing','compact');
 for i=1:length(is)
-    subplot(3,3,i)
+    nexttile;
     imagesc(X,X,data{is(i)})
     axis equal
     axis tight
-    title(sprintf('$j = %d, y=%.3f$',is(i),is(i)*delta-1),'Interpreter','latex','FontSize',16)
-    ylabel('$x$','Interpreter','latex','FontSize',16)
-    xlabel('$z$','Interpreter','latex','FontSize',16)
+    title(sprintf('$j = %d, y=%.3f$',is(i)-1,(is(i)-1)*delta-1),'Interpreter','latex','FontSize',16)
+    if i==1 | i==4 | i==7
+        ylabel('$x$','Interpreter','latex','FontSize',16)
+    end
+    if i >6
+        xlabel('$z$','Interpreter','latex','FontSize',16)
+    end
+
     ax = gca;
     ax.CLim = [0 20];
-    colorbar
 end
+
+cl = colorbar
+cl.Layout.Tile = 'east';
 
 sgtitle("$\textbf{C Implementation}$","fontsize",18,'interpreter','latex')
 
@@ -111,27 +118,31 @@ end
 
 X = linspace(-1,1,N+2);
 
-if N == 5
-    is = [2,round((N+1)/2),N+1];
-else
-    is = [2,round((N+1)/6),round((N+1)/4),round((N+1)/3),round((N+1)/2),round((N+1)/3*2),round((N+1)/4*3),round((N+1)/6*5),N+1];
-end
+is = [2,round((N+2)/6),floor((N+1)/4)+1,round((N+1)/3),floor((N+1)/2)+1,round((N+1)/3*2)+2,floor((N+1)/4*3)+1,round((N+1)/6*5)+1,N+1];
 
 delta = 2.0/(N+1);
 
-figure('Renderer', 'painters', 'Position', [400 400 820 700]);
+figure('Renderer', 'painters', 'Position', [400 400 750 700]);
+t = tiledlayout(3,3,'TileSpacing','compact');
 for i=1:length(is)
-    subplot(3,3,i)
+    nexttile;
     imagesc(X,X,data{is(i)})
     axis equal
     axis tight
-    title(sprintf('$k = %d, z=%.3f$',is(i),is(i)*delta-1),'Interpreter','latex','FontSize',16)
-    ylabel('$y$','Interpreter','latex','FontSize',16)
-    xlabel('$x$','Interpreter','latex','FontSize',16)
+    title(sprintf('$k = %d, z=%.3f$',is(i)-1,(is(i)-1)*delta-1),'Interpreter','latex','FontSize',16)
+    if i==1 | i==4 | i==7
+        ylabel('$y$','Interpreter','latex','FontSize',16)
+    end
+    if i >6
+        xlabel('$x$','Interpreter','latex','FontSize',16)
+    end
     ax = gca;
     ax.CLim = [0 20];
-    colorbar
+    
 end
+
+cl = colorbar
+cl.Layout.Tile = 'east';
 
 sgtitle("$\textbf{C Implementation}$","fontsize",18,'interpreter','latex')
 

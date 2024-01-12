@@ -1,0 +1,277 @@
+
+clear; close all; clc;
+
+% Mlup N*N*N*iter*10^(-6)
+% Mflop Mlups*(floating point opration), floating point opration = 11? 
+
+Ns = [55, 165, 275, 385];%[55, 165, 275, 385];
+types = {'old','init'};
+schedules = {'dynamic','static'}
+titles = {'\texttt{dynamic}', '\texttt{dynamic} with first-touch'; '\texttt{static}', '\texttt{static} with first-touch'};
+
+figure('Renderer', 'painters', 'Position', [400 400 1000 500]);
+t = tiledlayout(2,2,'TileSpacing','compact');
+for i=1:length(types)
+    type = types{i};
+    for j=1:length(schedules)
+        nexttile;
+        schedule = schedules{j};
+        for k=1:length(Ns)
+            N = Ns(k);
+            file = sprintf("../code/results/par_bas_j_%s_%s.%d.txt",schedule,type,N);
+            data = readmatrix(file);
+
+            iter = data(1,3);
+            threads = data(:,1);
+            runtime = data(:,5);
+            speedup = runtime(1)./runtime;
+            Mlups = N*N*N*10^(-6)*iter./runtime;
+            Mflops = Mlups*11;
+
+            plot(threads,speedup,'.-','MarkerSize',10)
+            hold on
+        end
+
+        grid on
+        if i==2
+            xlabel('Number of threads','Interpreter','latex','FontSize',15);
+        end
+        if j==1
+            ylabel('Speed-up','Interpreter','latex','FontSize',15);
+        end
+
+        ylim([0,8])
+        xlim([0,25])
+
+        title(titles{j,i},'Interpreter','latex','FontSize',16);
+        
+        
+    end
+end
+
+lgd = legend('$N=55$','$N=165$','$N=275$','$N=385$','Interpreter','latex','FontSize',15,'numcolumns',4)
+lgd.Layout.Tile = 'south';
+
+sgtitle("$\textbf{Jacobi}$","fontsize",18,'interpreter','latex')
+
+exportgraphics(gcf,'baseline_j_speedup.png','Resolution',300);
+
+%%
+
+clear; close all; clc;
+
+% Mlup N*N*N*iter*10^(-6)
+% Mflop Mlups*(floating point opration), floating point opration = 11? 
+
+Ns = [55, 165, 275, 385];%[55, 165, 275, 385];
+types = {'old','init'};
+schedules = {'dynamic','static'}
+titles = {'\texttt{dynamic}', '\texttt{dynamic} with first-touch'; '\texttt{static}', '\texttt{static} with first-touch'};
+
+figure('Renderer', 'painters', 'Position', [400 400 1000 500]);
+t = tiledlayout(2,2,'TileSpacing','compact');
+for i=1:length(types)
+    type = types{i};
+    for j=1:length(schedules)
+        nexttile;
+        schedule = schedules{j};
+        for k=1:length(Ns)
+            N = Ns(k);
+            file = sprintf("../code/results/par_bas_j_%s_%s.%d.txt",schedule,type,N);
+            data = readmatrix(file);
+
+            iter = data(1,3);
+            threads = data(:,1);
+            runtime = data(:,5);
+            speedup = runtime(1)./runtime;
+            Mlups = N*N*N*10^(-9)*iter./runtime*64;
+            Mflops = Mlups*11;
+
+            plot(threads,Mlups,'.-','MarkerSize',10)
+            hold on
+        end
+
+        grid on
+        if i==2
+            xlabel('Number of threads','Interpreter','latex','FontSize',15);
+        end
+        if j==1
+            ylabel('GBytes/s','Interpreter','latex','FontSize',15);
+        end
+
+        ylim([0,200])
+        xlim([0,25])
+
+        title(titles{j,i},'Interpreter','latex','FontSize',16);
+        
+        
+    end
+end
+
+lgd = legend('$N=55$','$N=165$','$N=275$','$N=385$','Interpreter','latex','FontSize',15,'numcolumns',4);
+lgd.Layout.Tile = 'south';
+
+sgtitle("$\textbf{Jacobi}$","fontsize",18,'interpreter','latex')
+
+exportgraphics(gcf,'baseline_j_GBytess.png','Resolution',300);
+
+%%
+clear; close all; clc;
+
+% Mlup N*N*N*iter*10^(-6)
+% Mflop Mlups*(floating point opration), floating point opration = 11? 
+
+Ns = [55, 165, 275, 385];%[55, 165, 275, 385];
+types = {'old','init'};
+titles = {'Without first-touch', 'With first-touch'};
+
+figure('Renderer', 'painters', 'Position', [400 400 1000 300]);
+t = tiledlayout(1,2,'TileSpacing','compact');
+for i=1:length(types)
+    type = types{i};
+    nexttile;
+    for k=1:length(Ns)
+        N = Ns(k);
+        file = sprintf("../code/results/par_bas_gs_%s.%d.txt",type,N);
+        data = readmatrix(file);
+
+        iter = data(1,3);
+        threads = data(:,1);
+        runtime = data(:,5);
+        speedup = runtime(1)./runtime;
+        Mlups = N*N*N*10^(-6)*iter./runtime;
+        Mflops = Mlups*11;
+
+        plot(threads,speedup,'.-','MarkerSize',10)
+        hold on
+    end
+
+    grid on
+    xlabel('Number of threads','Interpreter','latex','FontSize',15);
+    
+    if i==1
+        ylabel('Speed-up','Interpreter','latex','FontSize',15);
+    end
+
+    ylim([0,14])
+    xlim([0,25])
+
+    title(titles{i},'Interpreter','latex','FontSize',16);
+    
+    
+end
+
+lgd = legend('$N=55$','$N=165$','$N=275$','$N=385$','Interpreter','latex','FontSize',15,'numcolumns',4)
+lgd.Layout.Tile = 'south';
+
+sgtitle("$\textbf{Gauss-Seidel}$","fontsize",18,'interpreter','latex')
+
+exportgraphics(gcf,'baseline_gs_speedup.png','Resolution',300);
+
+%%
+clear; close all; clc;
+
+% Mlup N*N*N*iter*10^(-6)
+% Mflop Mlups*(floating point opration), floating point opration = 11? 
+
+Ns = [55, 165, 275, 385];%[55, 165, 275, 385];
+types = {'old','init'};
+titles = {'Without first-touch', 'With first-touch'};
+
+figure('Renderer', 'painters', 'Position', [400 400 1000 300]);
+t = tiledlayout(1,2,'TileSpacing','compact');
+for i=1:length(types)
+    type = types{i};
+    nexttile;
+    for k=1:length(Ns)
+        N = Ns(k);
+        file = sprintf("../code/results/par_bas_gs_%s.%d.txt",type,N);
+        data = readmatrix(file);
+
+        iter = data(1,3);
+        threads = data(:,1);
+        runtime = data(:,5);
+        speedup = runtime(1)./runtime;
+        Mlups = N*N*N*10^(-9)*iter./runtime*64;
+        Mflops = Mlups*11;
+
+        plot(threads,Mlups,'.-','MarkerSize',10)
+        hold on
+    end
+
+    grid on
+    xlabel('Number of threads','Interpreter','latex','FontSize',15);
+    
+    if i==1
+        ylabel('GBytes/s','Interpreter','latex','FontSize',15);
+    end
+
+    ylim([0,140])
+    xlim([0,25])
+
+    title(titles{i},'Interpreter','latex','FontSize',16);
+    
+    
+end
+
+lgd = legend('$N=55$','$N=165$','$N=275$','$N=385$','Interpreter','latex','FontSize',15,'numcolumns',4)
+lgd.Layout.Tile = 'south';
+
+sgtitle("$\textbf{Gauss-Seidel}$","fontsize",18,'interpreter','latex')
+
+exportgraphics(gcf,'baseline_gs_GBytess.png','Resolution',300);
+
+%%
+clear; close all; clc;
+
+% Mlup N*N*N*iter*10^(-6)
+% Mflop Mlups*(floating point opration), floating point opration = 11? 
+
+Ns = [55, 165, 275, 385];%[55, 165, 275, 385];
+types = {'close','spread'};
+titles = {'$N = 55$','$N = 165$','$N = 275$','$N = 385$'}
+
+figure('Renderer', 'painters', 'Position', [400 400 1000 600]);
+t = tiledlayout(2,2,'TileSpacing','compact');
+for k=1:length(Ns)
+    N = Ns(k);
+    nexttile;
+    for i=1:length(types)
+        type = types{i};
+        file = sprintf("../code/results/parallel_j_%s_%d.txt",type,N);
+        data = readmatrix(file);
+
+        iter = data(1,3);
+        threads = data(:,1);
+        runtime = data(:,5);
+        speedup = runtime(1)./runtime;
+        Mlups = N*N*N*10^(-6)*iter./runtime;
+        Mflops = Mlups*11;
+
+        plot(threads,speedup,'.-','MarkerSize',10)
+        hold on
+    end
+
+    grid on
+    xlabel('Number of threads','Interpreter','latex','FontSize',15);
+    
+    if i==1
+        ylabel('Speed-up','Interpreter','latex','FontSize',15);
+    end
+
+    ylim([0,10])
+    xlim([0,25])
+
+    title(titles{k},'Interpreter','latex','FontSize',16);
+    
+    
+end
+
+lgd = legend(types,'Interpreter','latex','FontSize',15,'numcolumns',4)
+lgd.Layout.Tile = 'south';
+
+sgtitle("$\textbf{Jacobi}$","fontsize",18,'interpreter','latex')
+
+exportgraphics(gcf,'parallel_gs_speedup.png','Resolution',300);
+
+
