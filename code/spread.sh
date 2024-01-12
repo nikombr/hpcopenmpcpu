@@ -20,8 +20,8 @@ rm -rf results/parallel_gs_spread_$N.txt
 
 for threads in {1..24..1};
 do  
-    echo -n $threads " " >> results/parallel_j_$N.txt
-    echo -n $threads " " >> results/parallel_gs_$N.txt
+    echo -n $threads " " >> results/parallel_j_spread_$N.txt
+    echo -n $threads " " >> results/parallel_gs_spread_$N.txt
     OMP_NUM_THREADS=$threads OMP_SCHEDULE=static,1 OMP_PROC_BIND=spread OMP_PLACES=sockets ./parallel_j $N $ITER $TOLERANCE $START_T >> results/parallel_j_spread_$N.txt
     OMP_NUM_THREADS=$threads OMP_PROC_BIND=spread OMP_PLACES=sockets ./parallel_gs $N $ITER $TOLERANCE $START_T >> results/parallel_gs_spread_$N.txt
 

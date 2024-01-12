@@ -85,11 +85,11 @@ main(int argc, char *argv[]) {
 
     // call iterator
     #ifdef _JACOBI
-    printf("Running sequential Jacobi with %d number of threads!\n",omp_get_max_threads());
+    //printf("Running sequential Jacobi with %d number of threads!\n",omp_get_max_threads());
     jacobi(u, uold, f, N, iter_max, &tolerance);
     #endif
     #ifdef _GAUSS_SEIDEL
-    printf("Running sequential Gauss-Seidel with %d number of threads!\n",omp_get_max_threads());
+    //printf("Running sequential Gauss-Seidel with %d number of threads!\n",omp_get_max_threads());
     gauss_seidel(u, f, N, iter_max, &tolerance);
     #endif
     #ifdef _JACOBI_PAR_BAS
@@ -101,11 +101,11 @@ main(int argc, char *argv[]) {
     gauss_seidel_par_bas(u, f, N, iter_max, &tolerance);
     #endif
     #ifdef _JACOBI_PAR
-    printf("Running parallel Jacobi with %d number of threads!\n",omp_get_max_threads());
+    //printf("Running parallel Jacobi with %d number of threads!\n",omp_get_max_threads());
     jacobi_parallel(u, uold, f, N, iter_max, &tolerance);
     #endif
     #ifdef _GAUSS_SEIDEL_PAR
-    printf("Running parallel Gauss-Seidel with %d number of threads!\n",omp_get_max_threads());
+    //printf("Running parallel Gauss-Seidel with %d number of threads!\n",omp_get_max_threads());
     gauss_seidel_parallel(u, f, N, iter_max, &tolerance);
     #endif
 

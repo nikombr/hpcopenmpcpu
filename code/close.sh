@@ -8,8 +8,8 @@
 ##BSUB -N # send mail when done
 #BSUB -R "span[hosts=1]"
 
-N=385 ## 55, 165, 275, 385
-ITER=600 ## 200000, 8000, 1500, 600
+N=55 ## 55, 165, 275, 385
+ITER=200000 ## 200000, 8000, 1500, 600
 TOLERANCE=-1
 START_T=5
 
@@ -20,8 +20,8 @@ rm -rf results/parallel_gs_close_$N.txt
 
 for threads in {1..24..1};
 do  
-    echo -n $threads " " >> results/parallel_j_$N.txt
-    echo -n $threads " " >> results/parallel_gs_$N.txt
+    echo -n $threads " " >> results/parallel_j_close_$N.txt
+    echo -n $threads " " >> results/parallel_gs_close_$N.txt
     OMP_NUM_THREADS=$threads OMP_SCHEDULE=static,1 OMP_PROC_BIND=close OMP_PLACES=sockets ./parallel_j $N $ITER $TOLERANCE $START_T >> results/parallel_j_close_$N.txt
     OMP_NUM_THREADS=$threads OMP_PROC_BIND=close OMP_PLACES=sockets ./parallel_gs $N $ITER $TOLERANCE $START_T >> results/parallel_gs_close_$N.txt
 
