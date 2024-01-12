@@ -18,33 +18,8 @@ void init(double *** u, double *** uold, double *** f, int N, double start_T) {
     double delta = 2.0/(N+1);
     double fracdelta = (N+1)/2.0;
 
-    if (omp_get_max_threads() > 1) {
-        #pragma omp parallel for schedule(static,1)
-        for (int i = 0; i <= N+1; i++) {
-            for (int j = 0; j <= N+1; j++) {
-                for (int k = 0; k <= N+1; k++) {  
-                    // Set f to zero everywhere 
-                    f[i][j][k] = 0;
-                    // Initialize uold to start_T
-                    uold[i][j][k] = start_T;
-                    u[i][j][k] = start_T;
-                }
-            }
-        }
-    }
-    else {
-        // Set f to zero everywhere
-        memset(f[0][0],0,(N+2)*(N+2)*(N+2)*sizeof(double));
-        // Initialize uold to start_T
-        for (int i = 1; i < N+1; i++) {
-            for (int j = 1; j < N+1; j++) {
-                for (int k = 1; k < N+1; k++) {
-                    uold[i][j][k] = start_T;
-                    u[i][j][k] = start_T;
-                }
-            }
-        }
-    }
+    // Set f to zero everywhere
+    memset(f[0][0],0,(N+2)*(N+2)*(N+2)*sizeof(double));
 
     // Overwrite a specific region
     int ux = floor(0.625*fracdelta), uy = floor(0.5*fracdelta), lz = ceil(1.0/3.0*fracdelta), uz = floor(fracdelta);
@@ -52,6 +27,16 @@ void init(double *** u, double *** uold, double *** f, int N, double start_T) {
         for (int j = 1; j <= uy; j++) {
             for (int k = lz; k <= uz; k++) {   
                 f[i][j][k] = 200;
+            }
+        }
+    }
+
+    // Initialize uold to start_T
+    for (int i = 1; i < N+1; i++) {
+        for (int j = 1; j < N+1; j++) {
+            for (int k = 1; k < N+1; k++) {
+                uold[i][j][k] = start_T;
+                u[i][j][k] = start_T;
             }
         }
     }

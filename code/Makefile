@@ -29,6 +29,7 @@ OBJS_PAR_GS		= $(MAIN_PAR_GS) 		gauss_seidel_parallel.o
 CC	= gcc
 DEFS	= 
 OPT	= -g -O3 -fopenmp
+# OPT	= -g -fopenmp
 IPO	= 
 ISA	= 
 CHIP	= 
