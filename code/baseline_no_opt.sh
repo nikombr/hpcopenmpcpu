@@ -9,7 +9,7 @@
 #BSUB -R "span[hosts=1]"
 
 N=495 ## 55, 165, 275, 385, 495
-ITER=10 ## 200000, 8000, 1500, 600, 10
+ITER=10 ## 200000, 8000, 1500, 600, 20
 TOLERANCE=-1
 START_T=5
 INIT="old" ## "old" or "init"
